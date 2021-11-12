@@ -48,7 +48,7 @@ namespace CleanArchMvc.Domain.Entities
 "Invalid description. Description is required");
 
             DomainExceptionValidation.When(description.Length < 5,
-    "Invalid description, too short! Minimum 3 charecters");
+    "Invalid description, too short! Minimum 5 charecters");
 
             Description = description;
 
@@ -62,8 +62,8 @@ namespace CleanArchMvc.Domain.Entities
 
             Stock = stock;
 
-            DomainExceptionValidation.When(image.Length>250,
-"Invalid image name, too long, maximum 250 characters");
+            DomainExceptionValidation.When(image?.Length>250,
+"Invalid image name, too long, maximum 250 characters"); // observe que foi incluido um operador ?. (null condicional) para que quando image for nula, não lance a nullexception
 
             Image = image;
 
