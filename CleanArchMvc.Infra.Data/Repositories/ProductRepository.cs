@@ -23,15 +23,16 @@ namespace CleanArchMvc.Infra.Data.Repositories
 
         public async Task<Product> GetByIdAsync(int? id)
         {
-            return await _productContext.Products.FindAsync(id);
-        }
-
-        public async Task<Product> GetProductCategoryAsync(int? id)
-        {
-            //FirstOrDefault normalmente executará mais rápido do que a comparação SingleOrDefault, uma vez que estes iterar a coleção até encontrar o primeiro registro. Enquanto SingleOrDefault irá fazer uma busca cega na coleção inteira para encontrar um único resultado.
-            //return await _productContext.Products.Include(c=> c.Category).SingleOrDefaultAsync(p=> p.Id == id);
+            //return await _productContext.Products.FindAsync(id);
             return await _productContext.Products.Include(c => c.Category).FirstOrDefaultAsync(p => p.Id == id);
         }
+
+        //public async Task<Product> GetProductCategoryAsync(int? id)
+        //{
+        //    //FirstOrDefault normalmente executará mais rápido do que a comparação SingleOrDefault, uma vez que estes iterar a coleção até encontrar o primeiro registro. Enquanto SingleOrDefault irá fazer uma busca cega na coleção inteira para encontrar um único resultado.
+        //    //return await _productContext.Products.Include(c=> c.Category).SingleOrDefaultAsync(p=> p.Id == id);
+        //    return await _productContext.Products.Include(c => c.Category).FirstOrDefaultAsync(p => p.Id == id);
+        //}
 
         public async Task<IEnumerable<Product>> GetProductsAsync()
         {

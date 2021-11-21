@@ -12,7 +12,7 @@ namespace CleanArchMvc.Domain.Interfaces
         //Cabe aqui um destaque: Observe que não é obrigatória a utilização do sufixo async antes de Task:
         Task<IEnumerable<Product>> GetProductsAsync();
         Task<Product> GetByIdAsync(int? id);
-        Task<Product> GetProductCategoryAsync(int? id);
+        //Task<Product> GetProductCategoryAsync(int? id);
 
         //async Task<Product> Create(Product product)
         //{
