@@ -24,6 +24,8 @@ namespace CleanArchMvc.Application.Services
         public async Task<IEnumerable<CategoryDTO>> GetCategoriesAsync()
         {
             var categoryEntity = await _categoryRepository.GetCategoriesAsync();
+            //var categoriesordered = categoryEntity.Where(m => m.Name != null).OrderBy(m => m.Name);
+            //return _mapper.Map<IEnumerable<CategoryDTO>>(categoriesordered);
             return _mapper.Map<IEnumerable<CategoryDTO>>(categoryEntity);
         }
 
