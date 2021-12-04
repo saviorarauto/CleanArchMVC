@@ -13,6 +13,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MediatR;
+using CleanArchMvc.Infra.Data.Identity;
+using Microsoft.AspNetCore.Identity;
+using CleanArchMvc.Domain.Account;
 
 namespace CleanArchMvc.Infra.IoC
 {
@@ -43,11 +46,23 @@ namespace CleanArchMvc.Infra.IoC
 
             //b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName),
 
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                        .AddEntityFrameworkStores<ApplicationDbContext>()
+                        .AddDefaultTokenProviders();
+
+            services.ConfigureApplicationCookie(options =>
+                     options.AccessDeniedPath = "/Account/Login");
+
+
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
 
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IProductService, ProductService>();
+
+            services.AddScoped<IAuthenticate, AuthenticateService>();
+            services.AddScoped<ISeedUserRoleInitial, SeedUserRoleInitial>();
+
             services.AddAutoMapper(typeof(DomainToDTOMappingProfile));
 
             var myhandlers = AppDomain.CurrentDomain.Load("CleanArchMvc.Application");
